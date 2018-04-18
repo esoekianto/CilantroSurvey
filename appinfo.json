@@ -1,0 +1,111 @@
+{
+    "arcgisRuntime": 0,
+    "capabilities": {
+        "audio": true,
+        "backgroundLocation": false,
+        "biometricAuthentication": false,
+        "bluetooth": false,
+        "camera": true,
+        "fileSharing": false,
+        "highAccuracyLocation": false,
+        "ios": {
+            "externalAccessoryProtocolStrings": [
+            ]
+        },
+        "localnotification": false,
+        "location": true,
+        "microphone": false,
+        "network": true,
+        "storage": true,
+        "vibration": false
+    },
+    "deployment": {
+        "android": {
+            "packageName": ""
+        },
+        "arcgisRuntimeExtensionsLicense": "",
+        "arcgisRuntimeLicense": "",
+        "clientId": "",
+        "ios": {
+            "bundleId": "",
+            "codeSignIdentity": ""
+        },
+        "macos": {
+            "bundleId": "",
+            "codeSignIdentity": ""
+        },
+        "publisherName": "",
+        "uwp": {
+            "packageName": "",
+            "productID": ""
+        }
+    },
+    "devicesTypes": [
+        "desktop",
+        "tablet",
+        "phone"
+    ],
+    "display": {
+        "desktop": {
+            "minimumHeight": 0,
+            "minimumWidth": 0,
+            "windowMode": "default"
+        },
+        "phone": {
+            "landscape": false,
+            "portrait": true,
+            "showStatusBar": true
+        },
+        "tablet": {
+            "landscape": true,
+            "portrait": true,
+            "showStatusBar": true
+        }
+    },
+    "environment": {
+    },
+    "launchUrlSchemes": [
+        "arcgis-appstudio-player",
+        "arcgis-collector",
+        "arcgis-trek2there",
+        "arcgis-explorer",
+        "arcgis-navigator",
+        "arcgis-workforce"
+    ],
+    "mainFile": "Survey123.qml",
+    "multipleInstances": true,
+    "projectFile": "Survey123.qmlproject",
+    "properties": {
+        "backgroundColor": "#efefef",
+        "backgroundTextureImage": "",
+        "companyLogo": "images/company_logo.png",
+        "companyUrl": "",
+        "fontFamily": "Raleway",
+        "formBackgroundColor": "#f7f8f8",
+        "startBackgroundColor": "#543E36",
+        "startForegroundColor": "transparent",
+        "startOverlayImage": "launch-overlay.png",
+        "textColor": "#4c4c4c",
+        "titleBarBackgroundColor": "#543e36",
+        "titleBarTextColor": "#ffffff"
+    },
+    "resources": {
+        "appIcon": "appicon.png",
+        "appIconBackgroundColor": "#3c8b09",
+        "launchImageBackground": "launchimage-background.png",
+        "launchImageBackgroundColor": "#543e36",
+        "launchImageOverlay": "launch-overlay.png"
+    },
+    "schema": "template/appschema.json",
+    "translations": {
+        "fileName": "Survey123App",
+        "path": "languages"
+    },
+    "type": "app",
+    "urlScheme": "",
+    "version": {
+        "major": 1,
+        "micro": 1,
+        "minor": 0
+    }
+}

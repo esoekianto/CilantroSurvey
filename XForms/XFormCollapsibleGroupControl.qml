@@ -1,0 +1,102 @@
+/* Copyright 2015 Esri
+ *
+ * Licensed under the Apache License, Version 2.0 (the "License");
+ * you may not use this file except in compliance with the License.
+ * You may obtain a copy of the License at
+ *
+ *    http://www.apache.org/licenses/LICENSE-2.0
+ *
+ * Unless required by applicable law or agreed to in writing, software
+ * distributed under the License is distributed on an "AS IS" BASIS,
+ * WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+ * See the License for the specific language governing permissions and
+ * limitations under the License.
+ *
+ */
+
+import QtQuick 2.4
+import QtQuick.Controls 1.3
+import QtQuick.Layouts 1.1
+
+import ArcGIS.AppFramework 1.0
+import ArcGIS.AppFramework.Controls 1.0
+
+import "XForm.js" as XFormJS
+
+GroupBox {
+    id: groupBox
+
+    property bool isPage: false
+    property var label
+    property alias headerItems: headerColumn
+    property alias contentItems: itemsColumn
+    property var binding
+    property XFormData formData
+    property bool relevant: parent.relevant
+    property bool hidden: false
+
+    property var labelControl
+    property var hintControl
+
+    readonly property bool collapsed: labelControl && typeof labelControl.collapsed === "boolean" ? labelControl.collapsed : false
+    readonly property string labelText: labelControl ? labelControl.labelText : ""
+
+    anchors {
+        left: parent.left
+        right: parent.right
+    }
+
+    flat: isPage
+    visible: relevant && !hidden
+    //title: text
+
+    Component.onCompleted: {
+        if (formData && binding && binding["@relevant"]) {
+            relevant = formData.relevantBinding(binding);
+        }
+    }
+
+    Column {
+        anchors {
+            left: parent.left
+            right: parent.right
+        }
+
+        spacing: 5 * AppFramework.displayScaleFactor
+
+        Column {
+            id: headerColumn
+
+            anchors {
+                left: parent.left
+                right: parent.right
+            }
+
+            spacing: parent.spacing
+        }
+
+        Column {
+            id: itemsColumn
+
+            readonly property alias relevant: groupBox.relevant
+
+            anchors {
+                left: parent.left
+                right: parent.right
+            }
+
+            spacing: parent.spacing
+            visible: !collapsed
+        }
+    }
+
+    function collapse(collapsed) {
+        if (typeof collapsed !== "boolean") {
+            collapsed = true;
+        }
+
+        if (labelControl) {
+            labelControl.collapsed = collapsed;
+        }
+    }
+}

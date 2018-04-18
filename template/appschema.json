@@ -1,0 +1,38 @@
+{
+    "propertiesInfo": {
+        "title": "Survey123",
+        "categoryInfos": [
+            {
+                "title": "General",
+                "propertyInfos": [
+                    {
+                        "type": "color",
+                        "name": "textColor",
+                        "label": "Text color"
+                    },
+                    {
+                        "type": "color",
+                        "name": "backgroundColor",
+                        "label": "Background color"
+                    },
+                    {
+                        "type": "color",
+                        "name": "titleBarTextColor",
+                        "label": "Title bar text color"
+                    },
+                    {
+                        "type": "color",
+                        "name": "titleBarBackgroundColor",
+                        "label": "Title bar background color"
+                    },
+                    {
+                        "type": "string",
+                        "name": "fontFamily",
+                        "label": "Font Family",
+                        "placeholder": "Font family name"
+                    }
+                ]
+            }
+        ]
+    }
+}
