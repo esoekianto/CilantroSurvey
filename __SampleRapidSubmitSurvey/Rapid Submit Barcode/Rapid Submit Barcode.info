@@ -35,5 +35,6 @@
     },
     "sentInfo": {
         "enabled": true
-    }
+    },
+    "rapidSubmit": true
 }
