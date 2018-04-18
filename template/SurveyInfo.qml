@@ -42,6 +42,8 @@ Item {
     property var sentInfo: info && info.sentInfo ? info.sentInfo : {}
     property var notificationsInfo: info && info.notificationsInfo ? info.notificationsInfo : {}
 
+    property bool isRapidSubmit: info && info.rapidSubmit ? info.rapidSubmit : false
+
     //--------------------------------------------------------------------------
     
     FileInfo {

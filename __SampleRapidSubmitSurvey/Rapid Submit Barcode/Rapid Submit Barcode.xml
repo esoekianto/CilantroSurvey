@@ -1,0 +1,23 @@
+<?xml version="1.0"?>
+<h:html xmlns="http://www.w3.org/2002/xforms" xmlns:esri="http://esri.com/xforms" xmlns:ev="http://www.w3.org/2001/xml-events" xmlns:h="http://www.w3.org/1999/xhtml" xmlns:jr="http://openrosa.org/javarosa" xmlns:orx="http://openrosa.org/xforms" xmlns:xsd="http://www.w3.org/2001/XMLSchema">
+  <h:head>
+    <h:title>Barcode Scanning</h:title>
+    <model>
+      <instance>
+        <Rapid_Submit_Barcode id="Rapid_Submit_Barcode">
+          <barcode1/>
+          <meta>
+            <instanceID/>
+          </meta>
+        </Rapid_Submit_Barcode>
+      </instance>
+      <bind nodeset="/Rapid_Submit_Barcode/barcode1" type="barcode"/>
+      <bind calculate="concat('uuid:', uuid())" nodeset="/Rapid_Submit_Barcode/meta/instanceID" readonly="true()" type="string"/>
+    </model>
+  </h:head>
+  <h:body>
+    <input appearance="minimal" ref="/Rapid_Submit_Barcode/barcode1">
+      <label>Rapid Scan Barcode</label>
+    </input>
+  </h:body>
+</h:html>

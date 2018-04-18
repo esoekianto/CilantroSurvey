@@ -95,6 +95,9 @@ StackView {
 
     property bool extensionsEnabled: true
 
+    property bool isRapidSubmit: false
+    property bool rapidSubmitCancelled: false
+
     //--------------------------------------------------------------------------
 
     signal validationError(var error);
@@ -102,6 +105,8 @@ StackView {
     signal saveAction();
 
     signal controlFocusChanged(Item control, bool active, var binding);
+
+    signal rapidSubmit()
 
     //--------------------------------------------------------------------------
 
@@ -1873,6 +1878,9 @@ StackView {
                 if (focus) {
                     focusItem = this;
                 }
+            }
+            onRapidSubmit: {
+                xform.rapidSubmit();
             }
         }
     }

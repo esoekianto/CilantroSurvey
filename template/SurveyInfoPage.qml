@@ -33,6 +33,18 @@ Page {
     property real imageScaleFactor: 0.75
     property int actionHeight: 70 * AppFramework.displayScaleFactor
 
+    property bool rapidSubmissionCancelled: false
+
+    Stack.onStatusChanged: {
+        if (Stack.status === Stack.Active){
+            console.log('-------surveyinfo stack', surveyInfo.isRapidSubmit)
+            if (surveyInfo.isRapidSubmit && !rapidSubmissionCancelled) {
+                collectAction.trigger();
+            }
+        }
+    }
+
+
     actionButton {
         visible: true
 

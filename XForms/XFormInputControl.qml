@@ -63,6 +63,7 @@ RowLayout {
     layoutDirection: xform.languageDirection
 
     signal cleared();
+    signal rapidSubmit()
 
     //--------------------------------------------------------------------------
 
@@ -545,6 +546,14 @@ RowLayout {
         sourceComponent: barcodeButtonComponent
         active: isBarcode && QtMultimedia.availableCameras.length > 0
         visible: active
+
+        onLoaded: {
+            console.log("----------onLoaded ", xform.isRapidSubmit, xform.rapidSubmitCancelled)
+            if (xform.isRapidSubmit && !xform.rapidSubmitCancelled) {
+                console.log("scanbarcode")
+                scanBarcode();
+            }
+        }
     }
 
     Component {
@@ -553,6 +562,9 @@ RowLayout {
         XFormBarcodeScan {
             onCodeScanned: {
                 setValue(code, 1);
+                if (xform.isRapidSubmit && !xform.rapidSubmitCancelled) {
+                    rapidSubmit();
+                }
             }
         }
     }

@@ -147,7 +147,19 @@ Rectangle {
 
                         onClicked: {
                             forceActiveFocus()
-                            formItem.confirmClose();
+                            if (surveyInfo.isRapidSubmit && !xform.rapidSubmitCancelled) {
+                                confirmPanel.clear();
+                                confirmPanel.icon = "images/close-red.png";
+                                confirmPanel.title = qsTr("Cancel Rapid Submission Session");
+                                confirmPanel.question = qsTr("Do you want to close the rapid submit session?");
+                                confirmPanel.button1Text = qsTr("<b>Yes</b> stop this rapid submission session.");
+                                confirmPanel.button2Text = qsTr("<b>No</b> continue this rapid submission survey");
+                                confirmPanel.verticalLayout = true;
+                                confirmPanel.show(xform.cancelRapidSubmission, undefined);
+                            }
+                            else {
+                                formItem.confirmClose();
+                            }
                         }
 
                         ColorOverlay {
@@ -481,6 +493,12 @@ Rectangle {
             XForm {
                 id: xform
 
+                isRapidSubmit: surveyInfo.isRapidSubmit
+
+                onRapidSubmit: {
+                    xform.saveValidate();
+                }
+
                 anchors {
                     left: parent.left
                     right: parent.right
@@ -598,6 +616,12 @@ Rectangle {
                     }
                 }
 
+                function cancelRapidSubmission(){
+                    xform.rapidSubmitCancelled = true;
+                    page.surveyInfoPage.rapidSubmissionCancelled = true;
+                    closeSurvey();
+                }
+
                 function closeSurvey() {
                     console.log("Closing survey");
 
@@ -659,6 +683,10 @@ Rectangle {
                         app.deleteAutoSave();
                     }
 
+                    if (xform.isRapidSubmit) {
+                        _submitSurvey();
+                        return;
+                    }
                     confirmPanel.clear();
                     confirmPanel.icon = "images/survey-completed.png";
                     confirmPanel.iconColor = "#a9d04d";
