@@ -33,6 +33,8 @@ Item {
     property alias font: textField.font
     property real maximumWidth
 
+    property alias text: textField.text
+
     //--------------------------------------------------------------------------
 
     visible: false

@@ -49,6 +49,11 @@ Rectangle {
 
     property bool betaMode: false
 
+    property string lastChosenImagePath
+    property string imageTakenDate
+    property string imageLocation
+    property string imageStamp
+
     //--------------------------------------------------------------------------
 
     signal saved(string path, url url)
@@ -62,6 +67,12 @@ Rectangle {
         if (fileInfo.exists) {
             sketchCanvas.load(fileInfo.filePath);
         }
+    }
+
+    //--------------------------------------------------------------------------
+
+    ExifInfo {
+        id: exifInfo
     }
 
     //--------------------------------------------------------------------------
@@ -291,6 +302,16 @@ Rectangle {
                     sketchCanvas.clear();
                 }
             }
+            MenuItem {
+                text: qsTr("Add Time and Location Stamp")
+                onTriggered: {
+                    sketchCanvas.canvas.textInput.textScale = 1;
+                    sketchCanvas.canvas.textInput.show(sketchCanvas.width/2, sketchCanvas.y, sketchCanvas.canvas.palette.selectedColor)
+                    sketchCanvas.canvas.textInput.text = imageStamp > "" ? imageStamp : "no metadata";
+                    sketchCanvas.canvas.textInput.finish();
+                    Qt.inputMethod.hide();
+                }
+            }
         }
     }
 
@@ -310,6 +331,7 @@ Rectangle {
                 sketchCanvas.pasteImage(url);
                 sketchCanvas.lastLoadedImage = path;
                 temporaryAttachmentUrl = path;
+                getImageMetadata();
             }
         }
     }
@@ -329,6 +351,7 @@ Rectangle {
                 sketchCanvas.pasteImage(url);
                 sketchCanvas.lastLoadedImage = path;
                 temporaryAttachmentUrl = path;
+                getImageMetadata();
             }
         }
     }
@@ -348,6 +371,7 @@ Rectangle {
             sketchCanvas.pasteImage(path);
             sketchCanvas.lastLoadedImage = path;
             temporaryAttachmentUrl = path;
+            getImageMetadata();
         }
     }
 
@@ -405,5 +429,30 @@ Rectangle {
     }
 
     //--------------------------------------------------------------------------
+
+    function getImageMetadata(){
+        imageStamp = "";
+        exifInfo.filePath = sketchCanvas.lastLoadedImage;
+
+        var time = exifInfo.extendedValue(ExifInfo.ExtendedDateTimeOriginal); // returns "undefined"
+        var longitude = exifInfo.gpsLongitude; // returns NaN if not available
+        var latitude = exifInfo.gpsLatitude; // returns NaN if not available
+
+        var localDate = (time !== undefined)
+                       ? new Date(time).toLocaleString()
+                       : "datetime: N/A";
+
+        var lon = !isNaN(longitude)
+                  ? parseFloat(longitude).toFixed(2).toString()
+                  : "N/A";
+
+        var lat = !isNaN(latitude)
+                  ? parseFloat(latitude).toFixed(2).toString()
+                  : "N/A";
+
+        imageStamp = "%1 \nlongitude: %2\nlatitude: %3".arg(localDate).arg(lon).arg(lat);
+
+        //imagesFolder.removeFile(lastChosenImagePath);
+    }
 
 }
